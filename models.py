@@ -7,8 +7,16 @@ from django.utils.timezone import now
 import dropbox
 
 class Post(models.Model):
+    CATEGORIES = (
+        ('css', 'CSS'),
+        ('js', 'JavaScript'),
+        ('py', 'Python'),
+        ('fd', 'Fundamentals'),
+    )
+
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
+    category = models.CharField(max_length=3, choices=CATEGORIES)
     publish = models.BooleanField("Published", default=False)
     date_published = models.DateField("Date Published", default=now)
     post_filename = models.CharField("Post Filename", max_length=200)

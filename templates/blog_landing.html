@@ -1,27 +1,16 @@
 {% extends "master.html" %}
+{% load markdown_filter %}
 
 {% block content %}
-    <div class="post">
-        <div class="post_date">May 16, 2017</div>
-
-        <h1 class="post_title">Testing Django on Mobile Devices</h1>
-
-        <div class="post_body">
-            I don’t know about you, but I think the most tedious part of any Django project is the setup. There are a number of steps involved, and it’s sometimes difficult to remember them all. You could write a list of the steps down somewhere, but wouldn’t it be nice if there was a way to streamline the process? Well, I'm here to tell you, there is! I've actually written several Python scripts that will get you up and running with Django and Django CMS in no time. And they're available for free on Github! This idea came to me when a coworker of mine decided to write a Perl script to mount remote servers to his local file system. My preferred scripting language being Python, I decided to do the same thing with a Python script. I took it a step further and added the ability to provide arguments for different usernames and directories. I could use one script to mount any server I needed to. I then thought about what else I could automate, and setting up Django projects was the first thing that came to mind. I made it so I can run a single script to set up a virtual environment, install django, install django cms, connect your database, run the django server inside the virtual environment, open the project in a text editor, and open the project in a browser. There are two versions of the script: one that will install using SQLite, and the other MySQL. You'll have to have set up a local MySQL instance and created a database in order for that script to work. The script is set up to open the project in Brackets and Chrome, but you can modify it to open in the editor and browser of your choice. Once again, you can check the scripts out on Github. If you have any questions or encounter any problems running the script, please mention them in the comments below.
-        </div>
-    </div>
-
-    <div class="post">
-        <div class="post_date">May 16, 2017</div>
-
-        <h1 class="post_title">Django CMS Install Scripts</h1>
-
-        <div class="post_body">
-            I don’t know about you, but I think the most tedious part of any Django project is the setup. There are a number of steps involved, and it’s sometimes difficult to remember them all. You could write a list of the steps down somewhere, but wouldn’t it be nice if there was a way to streamline the process? Well, I'm here to tell you, there is! I've actually written several Python scripts that will get you up and running with Django and Django CMS in no time. And they're available for free on Github! This idea came to me when a coworker of mine decided to write a Perl script to mount remote servers to his local file system. My preferred scripting language being Python, I decided to do the same thing with a Python script. I took it a step further and added the ability to provide arguments for different usernames and directories. I could use one script to mount any server I needed to. I then thought about what else I could automate, and setting up Django projects was the first thing that came to mind. I made it so I can run a single script to set up a virtual environment, install django, install django cms, connect your database, run the django server inside the virtual environment, open the project in a text editor, and open the project in a browser. There are two versions of the script: one that will install using SQLite, and the other MySQL. You'll have to have set up a local MySQL instance and created a database in order for that script to work. The script is set up to open the project in Brackets and Chrome, but you can modify it to open in the editor and browser of your choice. Once again, you can check the scripts out on Github. If you have any questions or encounter any problems running the script, please mention them in the comments below.
-        </div>
-    </div>
-
     {% for post in posts %}
-        {{ post.get_post_content }}
+        <div class="post">
+            <div class="post_date">{{ post.date_published|date:"N j, Y" }}</div>
+
+            <h1 class="post_title">{{ post.title }}</h1>
+
+            <div class="post_body">
+                {{ post.get_post_content|markdown_convert|truncatewords:80|safe }}
+            </div>
+        </div>
     {% endfor %}
 {% endblock content %}

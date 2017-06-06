@@ -15,6 +15,14 @@
             <div class="post_body">
                 {{ post.get_post_content|markdown_convert|truncatewords:80|safe }}
             </div>
+
+            <a href="{{ post.category.get_absolute_url }}" class="post_category {{ post.category.slug }}">
+                <i class="fa fa-folder-open-o" aria-hidden="true"></i> {{ post.category.title }}
+            </a>
+
+            <a href="{{ post.get_absolute_url }}" class="read_more {{ post.category.slug }}">
+                Read More <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+            </a>
         </div>
     {% endfor %}
 {% endblock content %}

@@ -17,4 +17,8 @@ class PostAdmin(admin.ModelAdmin):
     list_editable = ['category', 'publish', 'date_published']
     ordering = ['-date_published']
 
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ("title",)}
+
 admin.site.register(Post, PostAdmin)
+admin.site.register(Category, CategoryAdmin)

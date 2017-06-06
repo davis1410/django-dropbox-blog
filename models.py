@@ -7,16 +7,9 @@ from django.utils.timezone import now
 import dropbox
 
 class Post(models.Model):
-    CATEGORIES = (
-        ('css', 'CSS'),
-        ('js', 'JavaScript'),
-        ('py', 'Python'),
-        ('fd', 'Fundamentals'),
-    )
-
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
-    category = models.CharField(max_length=3, choices=CATEGORIES)
+    category = models.ForeignKey('Category', blank=True)
     publish = models.BooleanField("Published", default=False)
     date_published = models.DateField("Date Published", default=now)
     post_filename = models.CharField("Post Filename", max_length=200)
@@ -46,3 +39,22 @@ class Post(models.Model):
         file_content = file.content
 
         return file_content
+
+class Category(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True)
+
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if self.slug is None:
+            self.slug = slugify(self.title)
+        super(Post, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return "/%s" % self.slug

@@ -1,0 +1,14 @@
+{% extends "master.html" %}
+{% load markdown_filter %}
+
+{% block content %}
+    <div class="post">
+        <div class="post_date">{{ post.date_published|date:"N j, Y" }}</div>
+
+        <h1 class="post_title">{{ post.title }}</h1>
+
+        <div class="post_body">
+            {{ post.get_post_content|markdown_convert|safe }}
+        </div>
+    </div>
+{% endblock content %}

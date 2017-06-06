@@ -6,7 +6,11 @@
         <div class="post">
             <div class="post_date">{{ post.date_published|date:"N j, Y" }}</div>
 
-            <h1 class="post_title">{{ post.title }}</h1>
+            <a href="{{ post.get_absolute_url }}">
+                <h1 class="post_title">
+                    {{ post.title }}
+                </h1>
+            </a>
 
             <div class="post_body">
                 {{ post.get_post_content|markdown_convert|truncatewords:80|safe }}

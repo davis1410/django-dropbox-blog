@@ -1,4 +1,5 @@
 from django.apps import AppConfig
 
-class BlogConfig(AppConfig):
-    name = 'dropbox_blog'
+class DropboxBlogConfig(AppConfig):
+    name = 'django-dropbox-blog'
+    verbose_name = 'Dropbox Blog'

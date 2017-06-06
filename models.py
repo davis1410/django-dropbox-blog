@@ -54,7 +54,7 @@ class Category(models.Model):
     def save(self, *args, **kwargs):
         if self.slug is None:
             self.slug = slugify(self.title)
-        super(Post, self).save(*args, **kwargs)
+        super(Category, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return "/%s" % self.slug

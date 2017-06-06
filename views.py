@@ -10,11 +10,18 @@ def list(request):
 
     return render(request, "list.html", context)
 
-
-def category(request, c_id):
+def category(request, c_slug):
     context = {}
 
-    published_posts = Post.objects.filter(publish=True, category=c_id).order_by("-date_published")
+    published_posts = Post.objects.filter(publish=True, category__slug=c_slug).order_by("-date_published")
     context['posts'] = published_posts
 
     return render(request, "list.html", context)
+
+def post(request, p_slug):
+    context = {}
+
+    post = Post.objects.get(slug=p_slug)
+    context['post'] = post
+
+    return render(request, "single.html", context)
